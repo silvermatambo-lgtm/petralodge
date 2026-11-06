@@ -4,8 +4,8 @@
   "private": true,
   "scripts": {
     "dev": "vercel dev",
-    "check": "node --check script.js && node --check api/bookings.js",
-    "build": "node --check script.js && node --check api/bookings.js"
+    "check": "node --check public/script.js && node --check api/bookings.js",
+    "build": "node --check public/script.js && node --check api/bookings.js"
   },
   "dependencies": {
     "@neondatabase/serverless": "^1.0.1"
