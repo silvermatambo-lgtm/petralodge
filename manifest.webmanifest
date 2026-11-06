@@ -1,0 +1,24 @@
+{
+  "name": "Petra Lodge \u2014 Edenvale Accommodation",
+  "short_name": "Petra Lodge",
+  "start_url": "/",
+  "scope": "/",
+  "display": "standalone",
+  "background_color": "#f7f2e9",
+  "theme_color": "#203a31",
+  "description": "Comfortable accommodation and room requests at Petra Lodge, Edenvale",
+  "icons": [
+    {
+      "src": "assets/icon-192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "assets/icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any maskable"
+    }
+  ]
+}
