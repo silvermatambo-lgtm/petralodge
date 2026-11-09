@@ -31,7 +31,7 @@ export default async function handler(req,res){
  const sender=process.env.WHATSAPP_PHONE_NUMBER_ID,token=process.env.WHATSAPP_ACCESS_TOKEN,template=process.env.WHATSAPP_TEMPLATE_NAME;
  if(sender&&token&&template){
    try{
-     const result=await fetch(`https://graph.facebook.com/v22.0/${encodeURIComponent(sender)}/messages`,{method:'POST',headers:{'Authorization':`Bearer ${token}`,'Content-Type':'application/json'},body:JSON.stringify({messaging_product:'whatsapp',to:process.env.BOOKING_NOTIFY_TO||'27676923517',type:'template',template:{name:template,language:{code:'en_US'},components:[{type:'body',parameters:[{type:'text',text:reference},{type:'text',text:name.trim()},{type:'text',text:`${checkIn} to ${checkOut}`},{type:'text',text:roomType}]}]}})});
+     const result=await fetch(`https://graph.facebook.com/v22.0/${encodeURIComponent(sender)}/messages`,{method:'POST',headers:{'Authorization':`Bearer ${token}`,'Content-Type':'application/json'},body:JSON.stringify({messaging_product:'whatsapp',to:process.env.BOOKING_NOTIFY_TO||'27744211111',type:'template',template:{name:template,language:{code:'en_US'},components:[{type:'body',parameters:[{type:'text',text:reference},{type:'text',text:name.trim()},{type:'text',text:`${checkIn} to ${checkOut}`},{type:'text',text:roomType}]}]}})});
      notificationStatus=result.ok?'sent':'failed';if(!result.ok)console.error('WhatsApp notification returned',result.status);
    }catch(e){notificationStatus='failed';console.error('WhatsApp notification failed',e?.message)}
    try{const sql=neon(process.env.DATABASE_URL);await sql`UPDATE booking_requests SET notification_status=${notificationStatus} WHERE reference=${reference}`;}catch(e){console.error('Notification status update failed',e?.message)}

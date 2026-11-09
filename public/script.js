@@ -1,7 +1,7 @@
 (()=>{'use strict';
 const $=(q,p=document)=>p.querySelector(q), $$=(q,p=document)=>[...p.querySelectorAll(q)];
 const reduced=matchMedia('(prefers-reduced-motion: reduce)').matches;
-const WHATSAPP='27676923517';
+const WHATSAPP='27744211111';
 const rooms={single:{name:'Single Suite',price:900,max:1,image:'assets/double.webp'},double:{name:'Double Room',price:1100,max:2,image:'assets/double.webp'},family:{name:'Family Room',price:1300,max:3,image:'assets/family.webp'}};
 const money=n=>'R'+new Intl.NumberFormat('en-ZA',{maximumFractionDigits:0}).format(n);
 const dateLocal=()=>new Intl.DateTimeFormat('en-CA',{timeZone:'Africa/Johannesburg',year:'numeric',month:'2-digit',day:'2-digit'}).format(new Date());

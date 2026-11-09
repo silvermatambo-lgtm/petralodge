@@ -1,4 +1,4 @@
-const CACHE='petra-lodge-v1';const CORE=['/','/index.html','/rooms.html','/gallery.html','/explore.html','/contact.html','/styles.css','/script.js','/manifest.webmanifest','/assets/logo.webp','/assets/pool.webp','/assets/double.webp'];
+const CACHE='petra-lodge-v2';const CORE=['/','/index.html','/rooms.html','/gallery.html','/explore.html','/contact.html','/styles.css','/script.js','/manifest.webmanifest','/assets/logo.webp','/assets/pool.webp','/assets/double.webp'];
 self.addEventListener('install',e=>{e.waitUntil(caches.open(CACHE).then(c=>c.addAll(CORE)));self.skipWaiting()});
 self.addEventListener('activate',e=>{e.waitUntil(caches.keys().then(ks=>Promise.all(ks.filter(k=>k!==CACHE).map(k=>caches.delete(k)))));self.clients.claim()});
 self.addEventListener('fetch',e=>{const r=e.request;if(r.method!=='GET'||r.url.includes('/api/')||new URL(r.url).origin!==self.location.origin)return;e.respondWith(fetch(r).then(resp=>{if(resp.ok){const copy=resp.clone();caches.open(CACHE).then(c=>c.put(r,copy)).catch(()=>{})}return resp}).catch(()=>caches.match(r).then(c=>c||caches.match('/index.html'))))});
