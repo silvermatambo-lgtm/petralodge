@@ -10,3 +10,8 @@
 .wa-send-actions{display:flex;flex-wrap:wrap;gap:12px;margin:20px 0}
 .wa-send-actions .btn{flex:1 1 205px;justify-content:center;text-align:center}
 @media(max-width:520px){.wa-send-dialog{padding:21px}.wa-send-actions{flex-direction:column}}
+
+/* Four accommodation categories including the separate triple-single-bed arrangement. */
+.rooms-grid{grid-template-columns:repeat(2,minmax(0,1fr))}
+.room-card[data-room="triple"] .room-body .price{font-size:1.1rem}
+@media(max-width:800px){.rooms-grid{grid-template-columns:1fr}}
