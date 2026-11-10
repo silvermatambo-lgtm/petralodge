@@ -3,12 +3,13 @@
 Official branding: supplied Petra Lodge logo. Gallery: client-supplied lodge photographs (all stored locally in assets, not placeholder stock).
 
 ## Website
-Responsive five-page site with hero slider, typewriter headings, animated prices, reveal effects, 3D flip cards, gallery filter and lightbox, WhatsApp booking assistant, live booking calculations, mobile bottom navigation and installable PWA.
+Responsive five-page site with client-supplied accommodation photos and hero slider, typewriter headings, animated prices, reveal effects, 3D flip cards, gallery filter and lightbox, WhatsApp booking assistant, live booking calculations, mobile bottom navigation and installable PWA.
 
 ## Room pricing (ZAR per room per night)
 - Single Suite: R900, capacity 1 guest
 - Double Room: R1,100, capacity 2 guests
 - Family Room: R1,300, capacity 3 guests
+- Triple Single-Bed Room: three separate beds; rate and availability on enquiry (no rate invented, WhatsApp enquiry only)
 
 ## Booking flow
 1. Guest enters arrival/departure, room, guest count, contact details.
@@ -38,3 +39,11 @@ Old WordPress content indicates address `41A Danie Theron Street`, but an image 
 - Listed WhatsApp: **+27 74 421 1111**.
 - Additional direct WhatsApp button: **+27 67 692 3517**.
 - WhatsApp URL handoffs do not send to two numbers automatically. A two-button confirmation offers both chats; the visitor must send each. A Cloud API integration may notify both only once authorised and configured.
+
+## Client bedroom photo update — 10 Nov 2026
+- `room-single-client.webp`: cropped single bed detail from the uploaded three-bed room photo; not a separate photo of a dedicated single suite.
+- `room-double-client.webp`: queen/double bed photograph.
+- `room-double-alt-client.webp`: alternate double-room view used on the Rooms hero.
+- `room-triple-client.webp`: three separate single beds.
+- `room-family-client.webp`: one larger bed with one smaller single bed.
+- These files are used in accommodation cards, the Rooms details, booking summaries and Gallery. The triple room is enquiry-only until its rate is confirmed by the property.
