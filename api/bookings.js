@@ -29,11 +29,17 @@ export default async function handler(req,res){
  // Optional Meta Cloud API (requires an approved template; the displayed phone number alone is NOT sufficient).
  let notificationStatus='not_configured';
  const sender=process.env.WHATSAPP_PHONE_NUMBER_ID,token=process.env.WHATSAPP_ACCESS_TOKEN,template=process.env.WHATSAPP_TEMPLATE_NAME;
- if(sender&&token&&template){
-   try{
-     const result=await fetch(`https://graph.facebook.com/v22.0/${encodeURIComponent(sender)}/messages`,{method:'POST',headers:{'Authorization':`Bearer ${token}`,'Content-Type':'application/json'},body:JSON.stringify({messaging_product:'whatsapp',to:process.env.BOOKING_NOTIFY_TO||'27744211111',type:'template',template:{name:template,language:{code:'en_US'},components:[{type:'body',parameters:[{type:'text',text:reference},{type:'text',text:name.trim()},{type:'text',text:`${checkIn} to ${checkOut}`},{type:'text',text:roomType}]}]}})});
-     notificationStatus=result.ok?'sent':'failed';if(!result.ok)console.error('WhatsApp notification returned',result.status);
-   }catch(e){notificationStatus='failed';console.error('WhatsApp notification failed',e?.message)}
+ // Automatic delivery to both contacts requires Meta WhatsApp Cloud API credentials and an approved template.
+ const recipients=[process.env.BOOKING_NOTIFY_TO||'27744211111',process.env.BOOKING_NOTIFY_TO_SECONDARY||'27676923517'].map(n=>n.replace(/\D/g,'')).filter((n,i,a)=>/^\d{10,15}$/.test(n)&&a.indexOf(n)===i);
+ if(sender&&token&&template&&recipients.length){
+   const outcomes=await Promise.all(recipients.map(async to=>{
+     try{
+       const response=await fetch(`https://graph.facebook.com/v22.0/${encodeURIComponent(sender)}/messages`,{method:'POST',headers:{Authorization:`Bearer ${token}`,'Content-Type':'application/json'},body:JSON.stringify({messaging_product:'whatsapp',to,type:'template',template:{name:template,language:{code:'en_US'},components:[{type:'body',parameters:[{type:'text',text:reference},{type:'text',text:name.trim()},{type:'text',text:`${checkIn} to ${checkOut}`},{type:'text',text:roomType}]}]}})});
+       if(!response.ok)console.error('WhatsApp notification failed for destination',to,response.status);
+       return response.ok;
+     }catch(e){console.error('WhatsApp notification failed for destination',to,e?.message);return false}
+   }));
+   notificationStatus=outcomes.every(Boolean)?'sent':outcomes.some(Boolean)?'partial':'failed';
    try{const sql=neon(process.env.DATABASE_URL);await sql`UPDATE booking_requests SET notification_status=${notificationStatus} WHERE reference=${reference}`;}catch(e){console.error('Notification status update failed',e?.message)}
  }
  return json(res,201,{reference,status:'pending',notificationStatus,message:'Request recorded. The lodge must confirm availability. Please also send your WhatsApp message.'});
