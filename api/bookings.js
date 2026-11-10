@@ -30,7 +30,7 @@ export default async function handler(req,res){
  let notificationStatus='not_configured';
  const sender=process.env.WHATSAPP_PHONE_NUMBER_ID,token=process.env.WHATSAPP_ACCESS_TOKEN,template=process.env.WHATSAPP_TEMPLATE_NAME;
  // Automatic delivery to both contacts requires Meta WhatsApp Cloud API credentials and an approved template.
- const recipients=[process.env.BOOKING_NOTIFY_TO||'27744211111',process.env.BOOKING_NOTIFY_TO_SECONDARY||'27676923517'].map(n=>n.replace(/\D/g,'')).filter((n,i,a)=>/^\d{10,15}$/.test(n)&&a.indexOf(n)===i);
+ const recipients=[process.env.BOOKING_NOTIFY_TO||'27676923517',process.env.BOOKING_NOTIFY_TO_SECONDARY||'27744211111'].map(n=>n.replace(/\D/g,'')).filter((n,i,a)=>/^\d{10,15}$/.test(n)&&a.indexOf(n)===i);
  if(sender&&token&&template&&recipients.length){
    const outcomes=await Promise.all(recipients.map(async to=>{
      try{
